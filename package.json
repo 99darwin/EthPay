@@ -1,0 +1,29 @@
+{
+  "name": "ethpay",
+  "version": "1.0.0",
+  "description": "payroll dapp built on the eth blockchain",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/99darwin/EthPay.git"
+  },
+  "keywords": [
+    "nodejs",
+    "eth"
+  ],
+  "author": "99darwin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/99darwin/EthPay/issues"
+  },
+  "homepage": "https://github.com/99darwin/EthPay#readme",
+  "dependencies": {
+    "ethereumjs-testrpc": "^6.0.3",
+    "ethereumjs-tx": "^1.3.3",
+    "lodash": "^4.17.4",
+    "web3": "^1.0.0-beta.26"
+  }
+}
