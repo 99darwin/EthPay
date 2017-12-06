@@ -60,3 +60,6 @@ typings/
 # employee addresses
 addresses.js 
 
+# api keys
+keys.js
+
