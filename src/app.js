@@ -45,53 +45,45 @@ const paymentDetails = () => {
             price = res.result.ethusd;
             console.log(`The current price of Ethereum in USD is $${price}`);
             // console.log(`Salaries for employees are as follows: ${JSON.stringify(addresses.salary)}`);
+            let salaryArr = [];
+            let employeeArr = [];
+            for (let i = 0; i < addresses.length; i++) {
+                salaries = addresses[i].salary / price * ethMultiplier;
+                salaryArr.push(salaries);
+                employees = addresses[i].address;
+                employeeArr.push(employees);
+            }
             const sendEth = () => {
-                const employeeTx0 = {
-                    nonce: count,
-                    to: addresses.e1.address,
-                    value: web3.toHex(addresses.e1.salary / price * ethMultiplier),
-                    gasPrice: gasPrice,
-                    gasLimit: gasLimit,
-                    data: 'OxO'
-                };
-                console.log(employeeTx0);
-                count++;
-                const tx = new Tx(employeeTx0);
-                tx.sign(privateKey);
-                const serializedTx = tx.serialize();
-                e.sendRawTransaction('0x' + serializedTx.toString('hex'), function(err, hash) {
-                    if (!err) {
-                        console.log(`Successful tx, here's the hash: ${hash}`);
-                    } else {
-                        console.log(err);
-                    }
-                });
+                for (let j = 0; j < salaryArr.length; j++) {
+                    const employeeTx = {
+                        nonce: count,
+                        to: employeeArr[j],
+                        value: web3.toHex(salaryArr[j]),
+                        gasPrice: gasPrice,
+                        gasLimit: gasLimit,
+                        data: 'OxO'
+                    };
+                    console.log(employeeTx);
+                    count++;
+                    const tx = new Tx(employeeTx);
+                    tx.sign(privateKey);
+                    const serializedTx = tx.serialize();
+                    e.sendRawTransaction('0x' + serializedTx.toString('hex'), function(err, hash) {
+                        if (!err) {
+                            console.log(`Successful tx, here's the hash: ${hash}`);
+                        } else {
+                            console.log(err);
+                        }
+                    });
+                }
             }
             sendEth();
-            // const employeeTx1 = {
-            //     nonce: count,
-            //     to: employees.e2,
-            //     value: web3.toHex(salary.e1),
-            //     gasPrice: gasPrice,
-            //     gasLimit: gasLimit,
-            //     data: 'OxO'
-            // };
-            // count++;
-            // const employeeTx2 = {
-            //     nonce: count,
-            //     to: employees.e2,
-            //     value: web3.toHex(salary.e1),
-            //     gasPrice: gasPrice,
-            //     gasLimit: gasLimit,
-            //     data: 'OxO'
-            // };
-            // count++;
         })  
         .catch(function(err) {
             console.log(err);
         });
     
-    console.log(`Employee 1: ${addresses.e1.address}\nEmployee 2: ${addresses.e2.address}\nEmployee 3: ${addresses.e3.address}`);
+    // console.log(`Employee 1: ${addresses.e1.address}\nEmployee 2: ${addresses.e2.address}\nEmployee 3: ${addresses.e3.address}`);
 }
 
 
