@@ -9,7 +9,7 @@ const TestRPC = require('ethereumjs-testrpc');
 if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
 } else {
-    web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8546'));
+    web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8546')); // testrpc
 };
 // shorten web3.eth so we don't have to type it every time
 const e = web3.eth;
