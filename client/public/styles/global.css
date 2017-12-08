@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display|Playfair+Display+SC");
+body {
+  background-color: #eeeeee; }
+
+.sidebar {
+  display: flex;
+  position: absolute;
+  left: 0;
+  height: 100vh;
+  min-width: 20vw;
+  background-color: #343a40; }
+
+.sidebar .header {
+  padding: 1rem;
+  font-weight: bolder;
+  color: #50CE50;
+  border-bottom: solid 1px #72E572; }
+
+.mint {
+  color: #82E582; }
+
+.content {
+  display: flex;
+  position: absolute;
+  left: 20vw;
+  height: 100vh;
+  max-width: 80vw;
+  background-color: #eeeeee; }
+
+.content .window {
+  padding: 2rem; }
+
+.table thead th,
+.table th,
+.table td {
+  border: none; }
+
+#pay {
+  margin-top: 1rem; }
+
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    position: relative;
+    min-width: 100vw; }
+
+  .content {
+    position: relative;
+    min-width: 100vw;
+    max-width: 100vw; } }
+
+/*# sourceMappingURL=global.css.map */

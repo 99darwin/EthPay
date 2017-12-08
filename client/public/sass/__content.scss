@@ -1,0 +1,26 @@
+// Divs and Containers
+.content
+{
+    display: flex;
+    position: absolute;
+    left: 20vw;
+    height: 100vh;
+    max-width: 80vw;
+    background-color: $boxy;
+}
+
+.content .window
+{
+    padding: 2rem;
+}
+
+.table thead th,
+.table th,
+.table td
+{
+    border: none;
+}
+
+#pay{
+    margin-top: 1rem;
+}

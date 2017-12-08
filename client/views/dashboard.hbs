@@ -1,15 +1,5 @@
-<h1>EthPay</h1>
-<h2>Dashboard</h2>
-<hr/>
-
-<h3>Your employees</h3>
-<ul>
-    {{#each employees}}
-    <li>{{this.name}} | {{this.address}} | {{this.salary}}</li>
-    {{/each}}
-</ul>
-
-<a id="pay">Pay Employees</a>
+{{> sidebar }}
+{{> content }}
 
 <!-- Payment Functionality -->
 <script>

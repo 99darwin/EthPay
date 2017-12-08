@@ -1,0 +1,23 @@
+// Divs and Containers
+.sidebar
+{
+    display: flex;
+    position: absolute;
+    left: 0;
+    height: 100vh;
+    min-width: 20vw;
+    background-color: $onyx;
+}
+
+.sidebar .header
+{
+    padding: 1rem;
+    font-weight: bolder;
+    color: $emerald;
+    border-bottom: solid 1px $green;
+}
+
+.mint
+{
+    color: $mint;
+}
