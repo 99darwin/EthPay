@@ -19,7 +19,7 @@ $(()=>{
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify({{{json employees}}}),
-            success: () => { console.log("woo") },
+            success: (data) => { console.log(data) },
             error: () => { console.log("boo") },
             url: '/pay',
             cache: false

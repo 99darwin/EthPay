@@ -7,6 +7,15 @@ const TestRPC = require('ethereumjs-testrpc');
 
 module.exports = {
     send: (request, response) => {
+
+        var responseData = {
+            fromAcc: null,
+            price: 0,
+            salaries: [],
+            employees: [],
+            transactions: []
+        };
+
         // define web3 host
         if (typeof web3 !== 'undefined') {
             web3 = new Web3(web3.currentProvider);
@@ -27,6 +36,7 @@ module.exports = {
 
         // get nonce for default account
         let count = e.getTransactionCount(defaultAccount);
+        responseData.fromAcc = defaultAccount;
         console.log(`Transaction count for default account: ${count}`);
 
         // eth to wei converter
@@ -67,6 +77,7 @@ module.exports = {
 
                     // return USD price
                     price = res.result.ethusd;
+                    responseData.price = price;
                     console.log(`The current price of Ethereum in USD is $${price}`);
 
                     // create empty arrays for employee salaries and addresses
@@ -77,14 +88,15 @@ module.exports = {
                     for (let i = 0; i < request.body.length; i++) {
                         // find amount in eth employee is owed based on USD salary agreement
                         salaries = request.body[i].salary / price * ethMultiplier;
-
                         // push salary into empty salary array
                         salaryArr.push(salaries);
+                        responseData.salaries.push(salaries);
 
                         // parse employee addresses
                         employees = request.body[i].address;
                         // push addresses into empty array
                         employeeArr.push(employees);
+                        responseData.employees.push(employees);
                     }
 
                     // send ether function
@@ -115,6 +127,14 @@ module.exports = {
                                 if (!err) {
                                     // log the successful transaction hash for cross referencing
                                     console.log(`Successful tx, here's the hash: ${hash}`);
+                                    responseData.transactions.push(hash);
+                                    
+                                    // When we have a transaction for every salary.
+                                    if(responseData.transactions.length === salaryArr.length)
+                                    {
+                                        // Respond with all transaction details
+                                        response.status(200).json(responseData);
+                                    }
                                 } else {
                                     console.log(err);
                                 }
@@ -123,7 +143,6 @@ module.exports = {
                     }
                     // call the send eth function
                     sendEth();
-                    response.status(200).json("Donezo");
                 })
                 .catch(function(err) {
                     console.log(err);

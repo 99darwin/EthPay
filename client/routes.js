@@ -19,7 +19,7 @@ module.exports = function(app) {
     app.post('/pay', (req, res) => {
         API
         .sendPayment(req.body)
-        .then(result => console.log(result))
+        .then(result => res.json(result.data))
         .catch(err => console.log(err));
     });
 }
