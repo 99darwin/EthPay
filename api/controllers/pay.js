@@ -18,7 +18,7 @@ module.exports = {
         const e = web3.eth;
 
         // define the default 'from' account
-        const defaultAccount = e.defaultAccount = e.accounts[9];
+        const defaultAccount = e.defaultAccount = e.accounts[8];
 
         // private key buffer
         const privateKey = new Buffer(keys.privateKey, 'hex');
@@ -77,7 +77,7 @@ module.exports = {
                     for (let i = 0; i < request.body.length; i++) {
                         // find amount in eth employee is owed based on USD salary agreement
                         salaries = request.body[i].salary / price * ethMultiplier;
-                        
+
                         // push salary into empty salary array
                         salaryArr.push(salaries);
 
@@ -121,9 +121,9 @@ module.exports = {
                             });
                         }
                     }
-
                     // call the send eth function
                     sendEth();
+                    response.status(200).json("Donezo");
                 })
                 .catch(function(err) {
                     console.log(err);

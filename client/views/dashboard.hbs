@@ -1,0 +1,29 @@
+<h1>EthPay</h1>
+<h2>Dashboard</h2>
+<hr/>
+
+<h3>Your employees</h3>
+<ul>
+    {{#each employees}}
+    <li>{{this.name}} | {{this.address}} | {{this.salary}}</li>
+    {{/each}}
+</ul>
+
+<a id="pay">Pay Employees</a>
+
+<!-- Payment Functionality -->
+<script>
+$(()=>{
+    $('#pay').click(()=>{
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({{{json employees}}}),
+            success: () => { console.log("woo") },
+            error: () => { console.log("boo") },
+            url: '/pay',
+            cache: false
+        });
+    });
+});
+</script>
