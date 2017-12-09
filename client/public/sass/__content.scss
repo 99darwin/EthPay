@@ -2,7 +2,7 @@
 .content
 {
     display: flex;
-    position: absolute;
+    position: relative;
     left: 20vw;
     height: 100vh;
     max-width: 80vw;
@@ -12,6 +12,7 @@
 .content .window
 {
     padding: 2rem;
+    width: 100%;
 }
 
 .table thead th,

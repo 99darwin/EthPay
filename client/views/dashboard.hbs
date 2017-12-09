@@ -1,5 +1,31 @@
-{{> sidebar }}
-{{> content }}
+{{> sidebar title='dashboard'}}
+<div class="content">
+    <div class="window">
+        <div class="card text-white bg-dark">
+            <h4 class="card-header">Employees</h4>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">ETH Address</th>
+                        <th scope="col">Salary</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each employees}}
+                    <tr>
+                        <td>{{this.name}}</td>
+                        <td>{{this.address}}</td>
+                        <td>${{this.salary}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+
+        <button type="button" class="btn btn-dark" id="pay">Pay Employees</a>
+    </div>
+</div>
 
 <!-- Payment Functionality -->
 <script>

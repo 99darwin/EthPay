@@ -2,7 +2,15 @@
     <div class="container">
         <div class="header">
             <h1>EthPay</h1>
-            <h2 class="mint">Dashboard</h2>
+            <h2 class="page">{{this.title}}</h2>
+        </div>
+        <div class="menu">
+            <div class="{{#if active.dashboard}}active{{/if}} menu-item card text-white bg-dark">
+                <a href="/">Dashboard</a>
+            </div>
+            <div class="{{#if active.employees}}active{{/if}} menu-item card text-white bg-dark">
+                <a href="/employees">Employees</a>
+            </div>
         </div>
     </div>
 </div>
