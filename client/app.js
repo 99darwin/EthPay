@@ -1,4 +1,4 @@
-const express = require('express');
+ const express = require('express');
 const exphbs  = require('express-handlebars');
 const path    = require('path');
 const favicon = require('serve-favicon');

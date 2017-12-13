@@ -5,9 +5,17 @@ var api = axios.create({
 });
 
 module.exports = {
-    getAddresses: function() {
-        return api.get('/address');
-    },  
+    getEmployees: function() {
+        return api.get('/employee/list');
+    },
+
+    newEmployee: function(employee) {
+        return api.post('/employee/new', employee);
+    },
+
+    removeEmployee: function(address) {
+        return api.post('/employee/remove', address);
+    },
 
     sendPayment: function(employees) {
         return api.post('/pay/send', employees)

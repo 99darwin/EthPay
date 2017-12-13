@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const addressRoute = require("./address");
+const employeeRoute = require("./employee");
 const payRoute = require("./pay");
 
-router.use("/address", addressRoute);
+router.use("/employee", employeeRoute);
 router.use("/pay", payRoute);
 
 module.exports = router;

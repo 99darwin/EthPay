@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const addressSchema = new Schema({
+const employeeSchema = new Schema({
     name: { type: String, required: true },
     address: { type: String, required: true },
     salary: { type: Number, required: true },
 });
 
-const Address = mongoose.model("Address", addressSchema);
+const Employee = mongoose.model("Employee", employeeSchema);
 
-module.exports = Address;
+module.exports = Employee;

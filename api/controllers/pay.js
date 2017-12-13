@@ -13,7 +13,8 @@ module.exports = {
             price: 0,
             salaries: [],
             employees: [],
-            transactions: []
+            transactions: [],
+            hashes: []
         };
 
         // define web3 host
@@ -122,15 +123,17 @@ module.exports = {
                             // serialize the transaction
                             const serializedTx = tx.serialize();
 
+                            responseData.transactions.push(employeeTx);
+
                             // sent the raw transaction
                             e.sendRawTransaction('0x' + serializedTx.toString('hex'), function(err, hash) {
                                 if (!err) {
                                     // log the successful transaction hash for cross referencing
                                     console.log(`Successful tx, here's the hash: ${hash}`);
-                                    responseData.transactions.push(hash);
-                                    
+                                    responseData.hashes.push(hash);
+
                                     // When we have a transaction for every salary.
-                                    if(responseData.transactions.length === salaryArr.length)
+                                    if(responseData.hashes.length === salaryArr.length)
                                     {
                                         // Respond with all transaction details
                                         response.status(200).json(responseData);

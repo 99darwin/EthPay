@@ -4,27 +4,13 @@ module.exports = function(app) {
     // Page routes
     app.get('/', (req, res) => {
         API
-        .getAddresses()
-        .then(result => {
-            let renderData = {
-                employees: result.data,
-                active: { dashboard: true }
-            };
-
-            res.render('dashboard', renderData);
-        })
-        .catch(err => console.log(err));
-    });
-
-    app.get('/employees', (req, res) => {
-        API
-        .getAddresses()
+        .getEmployees()
         .then(result => {
             let renderData = {
                 employees: result.data,
                 count: result.data.length,
                 total: 0,
-                active: { employees: true }
+                active: { dashboard: true }
             };
 
             // 2+2 is 4 - quik mafs
@@ -33,7 +19,7 @@ module.exports = function(app) {
                 renderData.total += result.data[s].salary;
             }
 
-            res.render('employees', renderData);
+            res.render('dashboard', renderData);
         })
         .catch(err => console.log(err));
     });
@@ -42,6 +28,18 @@ module.exports = function(app) {
     app.post('/pay', (req, res) => {
         API
         .sendPayment(req.body)
+        .then(result => res.json(result.data))
+        .catch(err => console.log(err));
+    });
+
+    app.post('/employee/new', (req, res) => {
+        API.newEmployee(req.body)
+        .then(result => res.json(result.data))
+        .catch(err => console.log(err));
+    });
+
+    app.post('/employee/remove', (req, res) => {
+        API.removeEmployee(req.body)
         .then(result => res.json(result.data))
         .catch(err => console.log(err));
     });

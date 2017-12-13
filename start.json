@@ -1,0 +1,16 @@
+{
+    "apps": [
+        {
+            "name": "ethpay-api",
+            "cwd": "./api",
+            "script": "node",
+            "args": "index.js"
+        },
+        {
+            "name": "ethpay-client",
+            "cwd": "./client",
+            "script": "node",
+            "args": "bin/www"
+        }
+    ]
+}
