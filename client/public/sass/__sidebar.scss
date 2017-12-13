@@ -1,0 +1,53 @@
+// Divs and Containers
+.sidebar
+{
+    display: flex;
+    position: absolute;
+    left: 0;
+    height: 100vh;
+    min-width: 20vw;
+    background-color: $onyx;
+}
+
+.sidebar .header
+{
+    margin-top: 1rem;
+    font-weight: bolder;
+    color: $emerald;
+    border-bottom: 1px solid $mint;
+}
+
+.sidebar .page
+{
+    color: $mint;
+    text-transform: capitalize;
+}
+
+.menu
+{
+    margin-top: 1rem;
+}
+
+.menu-item
+{
+    border-radius: 0px;
+    border: none;
+    border-left: .25rem solid $onyx;
+
+
+    height: 2rem;
+    padding: 2.5px 5px 2.5px 5px;
+    margin-bottom: .5rem;
+}
+
+.active
+{
+    border-left: .25rem solid $mint;
+    color: $mint;
+}
+
+.menu-item a
+{
+    color: #fff;
+    text-decoration: none;
+}

@@ -1,0 +1,20 @@
+.stat
+{
+    border-radius: 0px;
+    border: none;
+    border-left: .25rem solid $mint;
+}
+
+.form-control,
+.form-control:focus,
+.form-control:active
+{
+    background-color: #404850;
+    color: #fff;
+}
+
+.form-control:focus,
+.form-control:active
+{
+    border-color: $mint;
+}
