@@ -1,7 +1,7 @@
 // dependencies
 const _ = require('lodash');
 const rp = require('request-promise');
-const keys = require('../keys.js');
+const BigNumber = require('bignumber.js');
 const Web3 = require('Web3');
 const Tx = require('ethereumjs-tx');
 const TestRPC = require('ethereumjs-testrpc');
@@ -9,27 +9,30 @@ const TestRPC = require('ethereumjs-testrpc');
 if (typeof web3 !== 'undefined') {
     web3 = new Web3(web3.currentProvider);
 } else {
-    web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8546')); // testrpc
+    web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
 };
 // shorten web3.eth so we don't have to type it every time
 const e = web3.eth;
 // define the default 'from' account
-const defaultAccount = e.defaultAccount = e.accounts[9];
-// private key buffer
-const privateKey = new Buffer(keys.privateKey, 'hex');
-console.log(`Default account to send from: ${defaultAccount}`);
-console.log(`Private key for this account: ${privateKey}`);
+const defaultAccount = e.defaultAccount = e.accounts[1];
 // get nonce for default account
 let count = e.getTransactionCount(defaultAccount);
 console.log(`Transaction count for default account: ${count}`);
 // eth to wei converter
 const ethMultiplier = 1000000000000000000;
 // set gaslimit
-let gasLimit = web3.toHex(210000);
+let gasLimit = web3.toHex(100000);
 // set gas price
-let gasPrice = web3.toHex(20000000000);
+let gasPrice = web3.toHex(21000000000);
 // import employee addresses
-const addresses = require('../addresses.example.js');
+const addresses = require('../addresses.js');
+// import keys
+const keys = require('../keys.js');
+// private key buffer
+const privateKey = new Buffer(keys.privateKey, 'hex');
+const privateKeyTest = new Buffer(keys.privateKeyTest, 'hex');
+console.log(`Default account to send from: ${defaultAccount}`);
+console.log(`Private key for this account: ${privateKey}`);
 // define payment schedule
 const interval = 10;
 // call the primary function required to pay out employees at the defined interval
@@ -41,7 +44,7 @@ const refreshInterval = setInterval(payEmployees, interval);
 // build out logic for paying employees
 const paymentDetails = () => {
     // etherscan call to get current ether price (etherscan)
-    let price = {
+    let priceCall = {
         uri: 'https://api.etherscan.io/api',
         qs: {
             module: 'stats',
@@ -53,29 +56,42 @@ const paymentDetails = () => {
         },
         json: true
     }
-    rp(price)
+    rp(priceCall)
         .then(function(res) {
             // return USD price
-            price = res.result.ethusd;
+            const price = res.result.ethusd;
             console.log(`The current price of Ethereum in USD is $${price}`);
             // create empty arrays for employee salaries and addresses
             let salaryArr = [];
             let employeeArr = [];
+            let testArr = [];
             // loop through employees
             for (let i = 0; i < addresses.length; i++) {
                 // find amount in eth employee is owed based on USD salary agreement
-                salaries = addresses[i].salary / price * ethMultiplier;
+                let salaries = Math.round(addresses[i].salary / price * ethMultiplier, 15);
+                let salariesRound = new BigNumber(salaries, 10);
                 // push salary into empty salary array
-                salaryArr.push(salaries);
+                salaryArr.push(salariesRound);
+                console.log(`Salary amount: ${salariesRound}`);
+                console.log(`Salary array: ${salaryArr}`);
                 // parse employee addresses
                 employees = addresses[i].address;
                 // push addresses into empty array
                 employeeArr.push(employees);
+                // test
+                console.log(`Test amount before conversion: ${addresses[i].test}`);
+                let test = Math.round(addresses[i].test / price * ethMultiplier, 15);
+                let testRound = new BigNumber(test, 10);
+                testArr.push(testRound);
+                console.log(`Test amount: ${testRound}`);
+                console.log(`Test array: ${testArr}`);
             }
             // send ether function
             const sendEth = () => {
                 // loop through the previously created salary array
                 for (let j = 0; j < salaryArr.length; j++) {
+                    console.log(`Salary amount to send: ${salaryArr[j]}`);
+                    console.log(`Employee receiving: ${employeeArr[j]}`);
                     // create transaction object
                     const employeeTx = {
                         nonce: count,
@@ -83,7 +99,7 @@ const paymentDetails = () => {
                         value: web3.toHex(salaryArr[j]),
                         gasPrice: gasPrice,
                         gasLimit: gasLimit,
-                        data: 'OxO'
+                        data: ''
                     };
                     // increase nonce
                     count++;
