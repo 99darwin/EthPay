@@ -129,5 +129,3 @@ const paymentDetails = () => {
 }
 
 
-
-

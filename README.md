@@ -85,7 +85,7 @@ Base HD Path:  m/44'/60'/0'/0/{account_index}
 
 Listening on localhost:8545
 ```
-You can then attach to you geth node
+You can then attach to your geth node
 ` geth attach http://localhost:8545 `
 
 ## Running
