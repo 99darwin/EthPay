@@ -57,8 +57,9 @@ typings/
 # dotenv environment variables file
 .env
 
-# employee addresses
-addresses.js 
+# addresses
+addresses.js
+internal.js
 
 # api keys
 keys.js
